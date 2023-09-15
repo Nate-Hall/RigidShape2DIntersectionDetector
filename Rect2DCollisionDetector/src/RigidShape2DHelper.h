@@ -2,6 +2,8 @@
 
 #include "RigidShape2D.h"
 
+
+
 enum TriPointOrientation
 {
 	Collinear = 0,
@@ -9,9 +11,11 @@ enum TriPointOrientation
 	CounterClockwise = 2
 };
 
-static class RigidShape2DHelper
+class RigidShape2DHelper
 {
 public:
-	static bool DoesIntersect(RigidShape2D, RigidShape2D);
+	static bool DoShapesIntersect(RigidShape2D, RigidShape2D);
+	static bool DoLinesIntersect(Vector2D, Vector2D, Vector2D, Vector2D);
 	static TriPointOrientation GetOrientationOfThreePoints(Vector2D, Vector2D, Vector2D);
+	static bool DoesPointExistWithinLineBounds(Vector2D, Vector2D, Vector2D);
 };
