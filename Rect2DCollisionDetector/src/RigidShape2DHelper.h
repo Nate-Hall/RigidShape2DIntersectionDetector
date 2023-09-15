@@ -17,5 +17,6 @@ public:
 	static bool DoShapesIntersect(RigidShape2D, RigidShape2D);
 	static bool DoLinesIntersect(Vector2D, Vector2D, Vector2D, Vector2D);
 	static TriPointOrientation GetOrientationOfThreePoints(Vector2D, Vector2D, Vector2D);
+	static bool DoesPointExistWithinShapeBounds(Vector2D, RigidShape2D);
 	static bool DoesPointExistWithinLineBounds(Vector2D, Vector2D, Vector2D);
 };

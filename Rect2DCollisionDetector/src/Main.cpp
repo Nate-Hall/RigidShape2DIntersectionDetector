@@ -1,6 +1,6 @@
 #include <iostream>
 #include "RigidShape2DHelper.h"
-#include "test_RigidShape2DHelper.cpp"
+#include "test_RigidShape2DHelper.h"
 
 
 
@@ -10,6 +10,4 @@ int main()
 {
 	if (_isInTestMode)
 		test_RigidShape2DHelper::RunAllTests();
-
-
 }

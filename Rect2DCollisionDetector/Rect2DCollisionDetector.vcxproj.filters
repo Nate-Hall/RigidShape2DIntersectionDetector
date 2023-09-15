@@ -41,5 +41,8 @@
     <ClInclude Include="src\RigidShape2DHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\test_RigidShape2DHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
