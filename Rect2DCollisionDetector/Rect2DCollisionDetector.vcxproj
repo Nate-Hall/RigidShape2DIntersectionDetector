@@ -143,16 +143,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\RigidShape2D.cpp" />
     <ClCompile Include="src\RigidShape2DHelper.cpp" />
     <ClCompile Include="src\Main.cpp" />
-    <ClCompile Include="src\Vector2D.cpp" />
+    <ClCompile Include="src\Vector2.cpp" />
     <ClCompile Include="src\test_RigidShape2DHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\RigidShape2DHelper.h" />
     <ClInclude Include="src\RigidShape2D.h" />
-    <ClInclude Include="src\Vector2D.h" />
+    <ClInclude Include="src\Vector2.h" />
     <ClInclude Include="src\test_RigidShape2DHelper.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

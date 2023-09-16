@@ -14,9 +14,9 @@ enum TriPointOrientation
 class RigidShape2DHelper
 {
 public:
-	static bool DoShapesIntersect(RigidShape2D, RigidShape2D);
-	static bool DoLinesIntersect(Vector2D, Vector2D, Vector2D, Vector2D);
-	static TriPointOrientation GetOrientationOfThreePoints(Vector2D, Vector2D, Vector2D);
-	static bool DoesPointExistWithinShapeBounds(Vector2D, RigidShape2D);
-	static bool DoesPointExistWithinLineBounds(Vector2D, Vector2D, Vector2D);
+	static bool DoShapesIntersect(const RigidShape2D&, const RigidShape2D&);
+	static bool DoLinesIntersect(const Vector2&, const Vector2&, const Vector2&, const Vector2&);
+	static TriPointOrientation GetOrientationOfThreePoints(const Vector2&, const Vector2&, const Vector2&);
+	static bool DoesPointExistWithinShapeBounds(const Vector2&, const RigidShape2D&);
+	static bool DoesPointExistWithinLineBounds(const Vector2&, const Vector2&, const Vector2&);
 };

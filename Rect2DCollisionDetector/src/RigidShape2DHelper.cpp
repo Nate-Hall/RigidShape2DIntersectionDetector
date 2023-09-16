@@ -3,24 +3,24 @@
 
 
 
-bool RigidShape2DHelper::DoShapesIntersect(RigidShape2D shapeA, RigidShape2D shapeB)
+bool RigidShape2DHelper::DoShapesIntersect(const RigidShape2D& shapeA, const RigidShape2D& shapeB)
 {
-	for (size_t i = 0; i < shapeA.NumVertices - 1; i++)
+	for (size_t i = 0; i < shapeA.m_numVertices - 1; i++)
 	{
-		for (size_t j = 0; j < shapeB.NumVertices - 1; j++)
+		for (size_t j = 0; j < shapeB.m_numVertices - 1; j++)
 		{
-			if (DoLinesIntersect(shapeA.Coordinates[i], shapeA.Coordinates[i + 1], shapeB.Coordinates[j], shapeB.Coordinates[j + 1]))
+			if (DoLinesIntersect(shapeA.m_coordinates[i], shapeA.m_coordinates[i + 1], shapeB.m_coordinates[j], shapeB.m_coordinates[j + 1]))
 				return true;
 		}
 	}
 
 	// Special case: One shape lies entirely within other shape without touching
-	if (shapeA.NumVertices > 0 && shapeB.NumVertices > 2
-		&& DoesPointExistWithinShapeBounds(shapeA.Coordinates[0], shapeB))
+	if (shapeA.m_numVertices > 0 && shapeB.m_numVertices > 2
+		&& DoesPointExistWithinShapeBounds(shapeA.m_coordinates[0], shapeB))
 		return true;
 
-	if (shapeA.NumVertices > 2 && shapeB.NumVertices > 0
-		&& DoesPointExistWithinShapeBounds(shapeB.Coordinates[0], shapeA))
+	if (shapeA.m_numVertices > 2 && shapeB.m_numVertices > 0
+		&& DoesPointExistWithinShapeBounds(shapeB.m_coordinates[0], shapeA))
 		return true;
 
 	return false;
@@ -28,7 +28,7 @@ bool RigidShape2DHelper::DoShapesIntersect(RigidShape2D shapeA, RigidShape2D sha
 
 
 
-bool RigidShape2DHelper::DoLinesIntersect(Vector2D lineAStart, Vector2D lineAEnd, Vector2D lineBStart, Vector2D lineBEnd)
+bool RigidShape2DHelper::DoLinesIntersect(const Vector2& lineAStart, const Vector2& lineAEnd, const Vector2& lineBStart, const Vector2& lineBEnd)
 {
 	TriPointOrientation orientation1 = GetOrientationOfThreePoints(lineAStart, lineAEnd, lineBStart);
 	TriPointOrientation orientation2 = GetOrientationOfThreePoints(lineAStart, lineAEnd, lineBEnd);
@@ -50,7 +50,7 @@ bool RigidShape2DHelper::DoLinesIntersect(Vector2D lineAStart, Vector2D lineAEnd
 
 
 
-TriPointOrientation RigidShape2DHelper::GetOrientationOfThreePoints(Vector2D pointA, Vector2D pointB, Vector2D pointC)
+TriPointOrientation RigidShape2DHelper::GetOrientationOfThreePoints(const Vector2& pointA, const Vector2& pointB, const Vector2& pointC)
 {
 	float slopeA = (pointB.Y - pointA.Y) * (pointC.X - pointB.X);
 	float slopeB = (pointB.X - pointA.X) * (pointC.Y - pointB.Y);
@@ -65,17 +65,17 @@ TriPointOrientation RigidShape2DHelper::GetOrientationOfThreePoints(Vector2D poi
 
 
 
-bool RigidShape2DHelper::DoesPointExistWithinShapeBounds(Vector2D point, RigidShape2D shape)
+bool RigidShape2DHelper::DoesPointExistWithinShapeBounds(const Vector2& point, const RigidShape2D& shape)
 {
 	// Create end coord from point that forms an infinite line to the right
-	Vector2D pointEnd = Vector2D(std::numeric_limits<float>::max(), point.Y);
+	Vector2 pointEnd = Vector2(std::numeric_limits<float>::max(), point.Y);
 
 	unsigned int intersectCount = 0;
 
 	// Count how many times the infinite line intersects the shape
-	for (size_t i = 0; i < shape.NumVertices - 1; i++)
+	for (size_t i = 0; i < shape.m_numVertices - 1; i++)
 	{
-		if (DoLinesIntersect(point, pointEnd, shape.Coordinates[i], shape.Coordinates[i + 1]))
+		if (DoLinesIntersect(point, pointEnd, shape.m_coordinates[i], shape.m_coordinates[i + 1]))
 			intersectCount++;
 	}
 
@@ -85,7 +85,7 @@ bool RigidShape2DHelper::DoesPointExistWithinShapeBounds(Vector2D point, RigidSh
 
 
 
-bool RigidShape2DHelper::DoesPointExistWithinLineBounds(Vector2D point, Vector2D lineStart, Vector2D lineEnd)
+bool RigidShape2DHelper::DoesPointExistWithinLineBounds(const Vector2& point, const Vector2& lineStart, const Vector2& lineEnd)
 {
 	bool liesWithinX = point.X <= std::max(lineStart.X, lineEnd.X) && point.X >= std::min(lineStart.X, lineEnd.X);
 	bool liesWithinY = point.Y <= std::max(lineStart.Y, lineEnd.Y) && point.Y >= std::min(lineStart.Y, lineEnd.Y);

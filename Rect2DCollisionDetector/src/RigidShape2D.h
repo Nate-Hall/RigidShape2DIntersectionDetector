@@ -1,14 +1,16 @@
 #pragma once
 
-#include "Vector2D.h"
+#include "Vector2.h"
 
 
 
 struct RigidShape2D
 {
-	unsigned int NumVertices;
-	Vector2D* Coordinates;
+	unsigned int m_numVertices;
+	Vector2* m_coordinates;
 
 	RigidShape2D();
-	RigidShape2D(int, Vector2D*);
+	RigidShape2D(const int&, Vector2*);
+	RigidShape2D(const RigidShape2D& other);
+	~RigidShape2D();
 };

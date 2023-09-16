@@ -41,16 +41,16 @@ bool test_RigidShape2DHelper::RunTest(const char* consoleText, function<bool()> 
 // Case: Neither shape overlap in any way
 bool test_RigidShape2DHelper::Test_NoIntersect()
 {
-	Vector2D shapeACoords[4] = { Vector2D(-2, -2),
-									Vector2D(-2, -1),
-									Vector2D(-1, -1),
-									Vector2D(-1, -2) };
+	Vector2* shapeACoords = new Vector2[4]{ Vector2(-2, -2),
+											Vector2(-2, -1),
+											Vector2(-1, -1),
+											Vector2(-1, -2) };
 	RigidShape2D shapeA(4, shapeACoords);
 
-	Vector2D shapeBCoords[4] = { Vector2D(1, 1),
-									Vector2D(1, 2),
-									Vector2D(2, 2),
-									Vector2D(2, 1) };
+	Vector2* shapeBCoords = new Vector2[4]{ Vector2(1, 1),
+											Vector2(1, 2),
+											Vector2(2, 2),
+											Vector2(2, 1) };
 	RigidShape2D shapeB(4, shapeBCoords);
 
 	return !RigidShape2DHelper::DoShapesIntersect(shapeA, shapeB);
@@ -62,16 +62,16 @@ bool test_RigidShape2DHelper::Test_NoIntersect()
 // Case: The point (0,0) in shapeB lives entirely within the bounds of shapeA
 bool test_RigidShape2DHelper::Test_SimpleIntersect()
 {
-	Vector2D shapeACoords[4] = { Vector2D(-1, -1),
-									Vector2D(-1, 1),
-									Vector2D(1, 1),
-									Vector2D(1, -1) };
+	Vector2* shapeACoords = new Vector2[4]{ Vector2(-1, -1),
+											Vector2(-1, 1),
+											Vector2(1, 1),
+											Vector2(1, -1) };
 	RigidShape2D shapeA(4, shapeACoords);
 
-	Vector2D shapeBCoords[4] = { Vector2D(0, 0),
-									Vector2D(0, 2),
-									Vector2D(2, 2),
-									Vector2D(2, 0) };
+	Vector2* shapeBCoords = new Vector2[4]{ Vector2(0, 0),
+											Vector2(0, 2),
+											Vector2(2, 2),
+											Vector2(2, 0) };
 	RigidShape2D shapeB(4, shapeBCoords);
 
 	return RigidShape2DHelper::DoShapesIntersect(shapeA, shapeB);
@@ -83,16 +83,16 @@ bool test_RigidShape2DHelper::Test_SimpleIntersect()
 //Case: The point (1,0) in shapeB lies on the line between (1,1) -> (1,-1) on shapeA
 bool test_RigidShape2DHelper::Test_CollinearPointIntersect()
 {
-	Vector2D shapeACoords[4] = { Vector2D(-1, -1),
-									Vector2D(-1, 1),
-									Vector2D(1, 1),
-									Vector2D(1, -1) };
+	Vector2* shapeACoords = new Vector2[4]{ Vector2(-1, -1),
+											Vector2(-1, 1),
+											Vector2(1, 1),
+											Vector2(1, -1) };
 	RigidShape2D shapeA(4, shapeACoords);
 
-	Vector2D shapeBCoords[4] = { Vector2D(1, 0),
-									Vector2D(2, 1),
-									Vector2D(3, 0),
-									Vector2D(2, -1) };
+	Vector2* shapeBCoords = new Vector2[4]{ Vector2(1, 0),
+											Vector2(2, 1),
+											Vector2(3, 0),
+											Vector2(2, -1) };
 	RigidShape2D shapeB(4, shapeBCoords);
 
 	return RigidShape2DHelper::DoShapesIntersect(shapeA, shapeB);
@@ -105,16 +105,16 @@ bool test_RigidShape2DHelper::Test_CollinearPointIntersect()
 //Case: The line (1,-2) -> (1,2) of shapeB lies along the line between (1,1) -> (1,-1) on shapeA
 bool test_RigidShape2DHelper::Test_CollinearEdgeIntersect()
 {
-	Vector2D shapeACoords[4] = { Vector2D(-1, -1),
-									Vector2D(-1, 1),
-									Vector2D(1, 1),
-									Vector2D(1, -1) };
+	Vector2* shapeACoords = new Vector2[4]{ Vector2(-1, -1),
+											Vector2(-1, 1),
+											Vector2(1, 1),
+											Vector2(1, -1) };
 	RigidShape2D shapeA(4, shapeACoords);
 
-	Vector2D shapeBCoords[4] = { Vector2D(1, -2),
-									Vector2D(1, 2),
-									Vector2D(2, 2),
-									Vector2D(2, -2) };
+	Vector2* shapeBCoords = new Vector2[4]{ Vector2(1, -2),
+											Vector2(1, 2),
+											Vector2(2, 2),
+											Vector2(2, -2) };
 	RigidShape2D shapeB(4, shapeBCoords);
 
 	return RigidShape2DHelper::DoShapesIntersect(shapeA, shapeB);
@@ -127,16 +127,16 @@ bool test_RigidShape2DHelper::Test_CollinearEdgeIntersect()
 //Case: Both shapeA and shapeB share the point (1,1)
 bool test_RigidShape2DHelper::Test_IdenticalPointIntersect()
 {
-	Vector2D shapeACoords[4] = { Vector2D(-1, -1),
-									Vector2D(-1, 1),
-									Vector2D(1, 1),
-									Vector2D(1, -1) };
+	Vector2* shapeACoords = new Vector2[4]{ Vector2(-1, -1),
+											Vector2(-1, 1),
+											Vector2(1, 1),
+											Vector2(1, -1) };
 	RigidShape2D shapeA(4, shapeACoords);
 
-	Vector2D shapeBCoords[4] = { Vector2D(1, 1),
-									Vector2D(1, 2),
-									Vector2D(2, 2),
-									Vector2D(2, 1) };
+	Vector2* shapeBCoords = new Vector2[4]{ Vector2(1, 1),
+											Vector2(1, 2),
+											Vector2(2, 2),
+											Vector2(2, 1) };
 	RigidShape2D shapeB(4, shapeBCoords);
 
 	return RigidShape2DHelper::DoShapesIntersect(shapeA, shapeB);
@@ -149,16 +149,16 @@ bool test_RigidShape2DHelper::Test_IdenticalPointIntersect()
 //Case: ShapeB existing entirely within shapeA
 bool test_RigidShape2DHelper::Test_EntirelyWithinBoundsIntersect()
 {
-	Vector2D shapeACoords[4] = { Vector2D(-1, -1),
-									Vector2D(-1, 1),
-									Vector2D(1, 1),
-									Vector2D(1, -1) };
+	Vector2* shapeACoords = new Vector2[4]{ Vector2(-1, -1),
+											Vector2(-1, 1),
+											Vector2(1, 1),
+											Vector2(1, -1) };
 	RigidShape2D shapeA(4, shapeACoords);
 
-	Vector2D shapeBCoords[4] = { Vector2D(-0.5, -0.5),
-									Vector2D(-0.5, 0.5),
-									Vector2D(0.5, 0.5),
-									Vector2D(0.5, -0.5) };
+	Vector2* shapeBCoords = new Vector2[4]{ Vector2(-0.5, -0.5),
+											Vector2(-0.5, 0.5),
+											Vector2(0.5, 0.5),
+											Vector2(0.5, -0.5) };
 	RigidShape2D shapeB(4, shapeBCoords);
 
 	return RigidShape2DHelper::DoShapesIntersect(shapeA, shapeB);
