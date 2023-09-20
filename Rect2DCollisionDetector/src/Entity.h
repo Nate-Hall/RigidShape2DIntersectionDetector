@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include "RigidShape2D.h"
 
 enum ComponentType
@@ -14,7 +15,6 @@ class Component
 {
 public:
 	virtual ComponentType GetComponentType() { return None; };
-	virtual unsigned long long GetComponentMemorySize() { return sizeof(Component); };
 
 	virtual ~Component() = default;
 };
@@ -26,7 +26,6 @@ public:
 class HealthComponent : public Component
 {
 	ComponentType GetComponentType() override { return Health; };
-	unsigned long long GetComponentMemorySize() override { return sizeof(HealthComponent); };
 
 private:
 	int m_health = 0;
@@ -35,7 +34,6 @@ private:
 class AttackComponent : public Component
 {
 	ComponentType GetComponentType() override { return Attack; };
-	unsigned long long GetComponentMemorySize() override { return sizeof(AttackComponent); };
 
 private:
 	unsigned int m_attackPower = 0;
@@ -44,7 +42,6 @@ private:
 class MovementComponent : public Component
 {
 	ComponentType GetComponentType() override { return Movement; };
-	unsigned long long GetComponentMemorySize() override { return sizeof(MovementComponent); };
 
 private:
 	float m_speed = 0;
@@ -54,9 +51,10 @@ class Entity
 {
 public:
 	RigidShape2D m_boundingBox;
-	Component* m_components;
-	int m_numComponents;
+	std::vector<Component> m_components;
 
 	Entity();
+	Entity(const RigidShape2D&, std::vector<Component>);
 	Entity(const Entity& other);
+	static long UniqueIntersectionsInEntities(const Entity*, const unsigned int&);
 };

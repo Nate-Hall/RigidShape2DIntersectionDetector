@@ -1,27 +1,34 @@
 #include <cstring>
+#include <memory>
 #include "Entity.h"
+#include "RigidShape2DHelper.h"
 
 
 
 Entity::Entity()
 {
 	m_boundingBox = RigidShape2D();
-	m_components = nullptr;
-	m_numComponents = 0;
 }
 
-Entity::Entity(const Entity& other)
-{
-	m_boundingBox = RigidShape2D(other.m_boundingBox);
+Entity::Entity(const RigidShape2D& boundingBox, std::vector<Component> components)
+	: m_boundingBox(boundingBox), m_components(components){}
 
-	// Determine memory size of m_components
-	unsigned long memSize = 0;
-	for (size_t i = 0; i < other.m_numComponents; i++)
+Entity::Entity(const Entity& other)
+	: m_boundingBox(other.m_boundingBox), m_components(other.m_components) {}
+
+
+long Entity::UniqueIntersectionsInEntities(const Entity* entities, const unsigned int& numEntities)
+{
+	unsigned long numIntersections = 0;
+
+	for (size_t i = 0; i < numEntities; i++)
 	{
-		memSize += other.m_components[i].GetComponentMemorySize();
+		for (size_t j = i + 1; j < numEntities; j++)
+		{
+			if (RigidShape2DHelper::DoShapesIntersect(entities[i].m_boundingBox, entities[j].m_boundingBox))
+				numIntersections++;
+		}
 	}
 
-	memcpy(&m_components, &other.m_components, memSize);
-
-	memcpy(&m_numComponents, &other.m_numComponents, sizeof(int));
+	return numIntersections;
 }

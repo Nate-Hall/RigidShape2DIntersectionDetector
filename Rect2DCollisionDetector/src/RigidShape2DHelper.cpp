@@ -5,9 +5,9 @@
 
 bool RigidShape2DHelper::DoShapesIntersect(const RigidShape2D& shapeA, const RigidShape2D& shapeB)
 {
-	for (size_t i = 0; i < shapeA.m_numVertices - 1; i++)
+	for (size_t i = 0; i < shapeA.m_coordinates.size() - 1; i++)
 	{
-		for (size_t j = 0; j < shapeB.m_numVertices - 1; j++)
+		for (size_t j = 0; j < shapeB.m_coordinates.size() - 1; j++)
 		{
 			if (DoLinesIntersect(shapeA.m_coordinates[i], shapeA.m_coordinates[i + 1], shapeB.m_coordinates[j], shapeB.m_coordinates[j + 1]))
 				return true;
@@ -15,11 +15,11 @@ bool RigidShape2DHelper::DoShapesIntersect(const RigidShape2D& shapeA, const Rig
 	}
 
 	// Special case: One shape lies entirely within other shape without touching
-	if (shapeA.m_numVertices > 0 && shapeB.m_numVertices > 2
+	if (shapeA.m_coordinates.size() > 0 && shapeB.m_coordinates.size() > 2
 		&& DoesPointExistWithinShapeBounds(shapeA.m_coordinates[0], shapeB))
 		return true;
 
-	if (shapeA.m_numVertices > 2 && shapeB.m_numVertices > 0
+	if (shapeA.m_coordinates.size() > 2 && shapeB.m_coordinates.size() > 0
 		&& DoesPointExistWithinShapeBounds(shapeB.m_coordinates[0], shapeA))
 		return true;
 
@@ -73,7 +73,7 @@ bool RigidShape2DHelper::DoesPointExistWithinShapeBounds(const Vector2& point, c
 	unsigned int intersectCount = 0;
 
 	// Count how many times the infinite line intersects the shape
-	for (size_t i = 0; i < shape.m_numVertices - 1; i++)
+	for (size_t i = 0; i < shape.m_coordinates.size() - 1; i++)
 	{
 		if (DoLinesIntersect(point, pointEnd, shape.m_coordinates[i], shape.m_coordinates[i + 1]))
 			intersectCount++;
